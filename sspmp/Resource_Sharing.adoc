@@ -1,8 +1,8 @@
 [[PMP_Resource_Sharing]]
 == Extension of Resource Sharing
 
-Given that PMP and SPMP have similar layout of address/config registers and the same address matching logic.
-Reusing registers and comparators between PMP and SPMP may be benefitial (in some cases) to save hardware resources.
+Given that PMP and SPMP have similar layout of address/config registers and the same address matching logic,
+reusing registers and comparators between PMP and SPMP may be beneficial (in some cases) to save hardware resources.
 This section introduces the resource sharing extension that can support dynamic reallocation of hardware resource between PMP and SPMP.
 
 Implementations can consider PMP/SPMP entries as a resource pool (called PMP_Resource).
