@@ -33,6 +33,8 @@ bit (Supervisor bit) set in `spmpcfg[i]`.
 After initializing the entries, the OS must also set the corresponding bits in
 the `spmpswitch` register to activate these entries, and enable the allowlist
 policy for supervisor mode by setting the `SMAA` bit in the `ssecfg` CSR. 
+// This is only needed if we AREN'T protecting the OS via SPMP, though. I
+// think breaking this into the two sub-cases would simplify the discussion here.
 
 Prior to launching the first user task, the OS sets the bits in `spmpswitch`
 corresponding to the SPMP entries assigned to that task. During a context
@@ -50,9 +52,7 @@ for user tasks on every context switch. Notably, for any given hart, the number
 of SPMP entries must still be sufficient to hold both the supervisor entries
 and the entries for the currently executing user-mode task.
 
-Where sufficient SPMP entries exist to cover all tasks and the OS, an
-implementation may simply update `spmpswitch` on context switches. Otherwise,
-the following sequence is recommended for dynamic reconfiguration:
+The following sequence is recommended for dynamic reconfiguration:
 
 1. *Disable Entries for the Outgoing Task*.
 Use the `csrc` instruction to clear the `spmpswitch` bits corresponding to the
